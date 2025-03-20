@@ -1,14 +1,7 @@
 from typing import List
 from sort import bubble_sort, insertion_sort, selection_sort, merge_sort, quick_sort
-from utils import read_words
+from utils import load_data
 import copy
-
-
-def load_data(filename: str, times: int, space: List[int]) -> List[List[str]]:
-    output = [None] * times
-    for i in range(times):
-        output[i] = read_words(filename, space[i])
-    return output
 
 
 def test_sorting():
@@ -27,10 +20,11 @@ def test_sorting():
         bubble_sort(data_bubble[i])
         insertion_sort(data_insertion[i])
         selection_sort(data_selection[i])
+        merge_sort(data_merge[i])
         quick_sort(data_quick[i])
 
         assert verify == data_bubble[i]
         assert verify == data_insertion[i]
         assert verify == data_selection[i]
-        assert verify == merge_sort(data_merge[i], 0, len(data_merge[i]))
+        assert verify == data_merge[i]
         assert verify == data_quick[i]

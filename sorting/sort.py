@@ -59,17 +59,20 @@ def merge(left: List[str], right: List[str]) -> List[str]:
     return output
 
 
-def merge_sort(input: List[str], _from: int, _to: int) -> List[str]:
-    if _from == _to:
-        if _from < len(input):
-            return [input[_from]]
-        else:
-            return []
+def merge_sort_helper(input: List[str], _from: int, _to: int) -> List[str]:
+    if _from < _to:
+        mid = (_from + _to) // 2
+        left = input[_from : mid + 1]
+        right = input[mid + 1 : _to + 1]
+        merge_sort_helper(left, 0, len(left) - 1)
+        merge_sort_helper(right, 0, len(right) - 1)
+        output = merge(left, right)
+        for i in range(len(output)):
+            input[_from + i] = output[i]
 
-    mid = (_from + _to) // 2
-    left = merge_sort(input, _from, mid)
-    right = merge_sort(input, mid + 1, _to)
-    return merge(left, right)
+
+def merge_sort(input: List[str]):
+    merge_sort_helper(input, 0, len(input) - 1)
 
 
 def partition(input: List[str], low: int, high: int) -> int:
