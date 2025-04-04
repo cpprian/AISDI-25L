@@ -50,3 +50,18 @@ class DHeap:
                 i = min_child
             else:
                 break
+
+    def display(self):
+        if not self.heap:
+            print("Heap is empty.")
+            return
+
+        index = 0
+        level = 0
+        count = 1
+        while index < len(self.heap):
+            next_index = index + count
+            print("Level", level, ":", self.heap[index:next_index])
+            index = next_index
+            count *= self.d
+            level += 1

@@ -2,24 +2,21 @@ import pytest
 import random
 from heap import DHeap
 
-
 @pytest.fixture(scope="module")
 def input_data():
     return [random.randint(1, 300000) for _ in range(100000)]
-
 
 @pytest.mark.parametrize("d", [2, 5, 7])
 def test_heap_correctness(d):
     heap = DHeap(d)
     input_data = [random.randint(1, 300000) for _ in range(10000)]
-
+    
     for v in input_data:
         heap.append(v)
 
     sorted_data = sorted(input_data)
     for i in range(len(sorted_data)):
         assert heap.pop() == sorted_data[i]
-
 
 @pytest.mark.benchmark(group="append")
 @pytest.mark.parametrize("d", [2, 5, 7])
@@ -42,7 +39,7 @@ def test_benchmark_pop(d, benchmark, input_data):
         heap = DHeap(d)
         for v in input_data:
             heap.append(v)
-
+        
         return (heap,), {}
 
     def remove_all(h: DHeap):
